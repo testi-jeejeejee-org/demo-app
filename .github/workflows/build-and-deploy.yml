@@ -1,4 +1,5 @@
 # build and deploy streamlit app using GitHub actions and requirements.txt to Netlify
+  
 name: Streamlit App
 
 on:
@@ -11,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
+      - name: Set up Python 3.10
         uses: actions/setup-python@v1
         with:
           python-version: 3.10
