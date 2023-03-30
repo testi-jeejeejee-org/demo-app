@@ -5,30 +5,37 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions: write-all
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          ref: ${{ github.ref }}
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Build and tag Docker image
+        id: build-image
+        uses: docker/build-push-action@v2
         with:
-          python-version: 3.9
-          
-      - name: Install dependencies
+          context: .
+          push: false
+          tags: streamlit-demo:latest
+      
+      - name: Deploy to Elastic Beanstalk environment
+        id: create-environment
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .     
+          eb init efi-smirnov-streamlit-demo-env --region eu-west-2
+          eb use efi-smirnov-streamlit-demo-env
+          eb deploy
+ 
         
