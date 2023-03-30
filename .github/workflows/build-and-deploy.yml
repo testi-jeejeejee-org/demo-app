@@ -12,6 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
+      - name: Prepare Environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install python3-pip
+          sudo pip3 install awsebcli
+      
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -34,6 +40,7 @@ jobs:
       - name: Deploy to Elastic Beanstalk environment
         id: create-environment
         run: |
+          
           eb init efi-smirnov-streamlit-demo-env --region eu-west-2
           eb use efi-smirnov-streamlit-demo-env
           eb deploy
