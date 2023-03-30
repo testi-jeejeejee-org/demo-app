@@ -41,7 +41,7 @@ jobs:
         id: create-environment
         run: |
           
-          eb init efi-smirnov-streamlit-demo-env --region eu-west-2
+          eb init efi-smirnov-streamlit-demo-env --platform Docker --region eu-west-2
           eb use efi-smirnov-streamlit-demo-env
           eb deploy
  
