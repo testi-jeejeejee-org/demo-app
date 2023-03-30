@@ -40,7 +40,7 @@ jobs:
       - name: Deploy to Elastic Beanstalk environment
         id: create-environment
         run: |
-          eb init Efismirnovstreamlitdemoenv-env --platform Docker --region eu-west-2 --verbose
+          eb init efi-smirnov-streamlit-demo-env --platform Docker --region eu-west-2 --verbose
           eb list
           eb deploy Efismirnovstreamlitdemoenv-env
  
