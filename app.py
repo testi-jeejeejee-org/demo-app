@@ -21,7 +21,7 @@ with st.container():
         st.title("Hi, I am Evgenii :wave:")
         st.subheader("I am a DevOps Consultant :computer:")
         st.write("I am passionate in helping companies to integrate people, processes, and technology together in order to provide uninterrupted value to their customers :rocket:")
-        st.write("Also, I am glad to share my knowledge with people! :smiley:")
+        st.write("Also, I am happy to share my knowledge with people! :smiley:")
     with right_column:
         st_lottie(lottie_working, height=400, width=500, key="working")
 
